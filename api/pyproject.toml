@@ -1,8 +1,11 @@
 [tool.poetry]
-name = "atm_tracker"
+name = "api"
 version = "0.1.0"
 description = ""
-authors = ["Ilnar Gomelyanov <hibushland@gmail.com>"]
+authors = [
+    "Ilnar Gomelyanov <hibushland@gmail.com>",
+    "Ramil Suleimanov <threesixkilla@gmail.com>"
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
