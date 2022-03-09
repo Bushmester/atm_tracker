@@ -1,4 +1,4 @@
-from a import __version__
+from atm_tracker import __version__
 
 
 def test_version():
