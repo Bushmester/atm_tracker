@@ -8,6 +8,7 @@ authors = ["Ilnar Gomelyanov <hibushland@gmail.com>", "Ramil Suleimanov <lllumin
 python = "^3.10"
 uvicorn = "^0.17.5"
 fastapi = "^0.75.0"
+aiohttp = "^3.8.1"
 
 [tool.poetry.dev-dependencies]
 
