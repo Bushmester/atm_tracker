@@ -6,7 +6,7 @@ window.onload = async function (){
     await build_sidebar()
 
     const socket = new WebSocket("ws://localhost:8000/ws/{client}")
-    await document.getElementById('search btn').onclick = async () => {
-        await socket.send(get_data_from_sidebar())
+    document.getElementById('search btn').onclick = async () => {
+        await socket.send(await get_data_from_sidebar())
     }
 }

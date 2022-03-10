@@ -1,8 +1,8 @@
-export function get_data_from_sidebar() {
-    let city = document.getElementById('city').value
+export async function get_data_from_sidebar() {
+    let city = await document.getElementById('city').value
 
     let currencies = []
-    let currency_check = document.getElementsByName('currency_check').values()
+    let currency_check = await document.getElementsByName('currency_check').values()
     for (let currency of currency_check) {
         if (currency.checked) {
                 currencies.push(currency.value)
@@ -10,7 +10,7 @@ export function get_data_from_sidebar() {
     }
 
     let banks = []
-    let bank_check = document.getElementsByName('bank_check').values()
+    let bank_check = await document.getElementsByName('bank_check').values()
     for (let bank of bank_check) {
         if (bank.checked) {
             banks.push(bank.value)
