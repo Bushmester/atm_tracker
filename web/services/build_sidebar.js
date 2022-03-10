@@ -8,6 +8,8 @@ export function build_sidebar() {
     for (let currency of currencies) {
         let copyHTML = document.importNode(currency_temp, true)
         copyHTML.querySelector('input').setAttribute("value", currency)
+        copyHTML.querySelector('input').setAttribute("id", "currency-check "+ currency)
+        copyHTML.querySelector('label').setAttribute("for", "currency-check "+ currency)
         copyHTML.querySelector('label').textContent = currency
         document.getElementById("currencies").appendChild(copyHTML)
     }
@@ -17,6 +19,8 @@ export function build_sidebar() {
     for (let bank in banks) {
         let copyHTML = document.importNode(bank_temp, true)
         copyHTML.querySelector('input').setAttribute("value", banks[bank])
+        copyHTML.querySelector('input').setAttribute("id", "bank-check "+ bank)
+        copyHTML.querySelector('label').setAttribute("for", "bank-check "+ bank)
         copyHTML.querySelector('label').textContent = bank
         document.getElementById("banks").appendChild(copyHTML)
     }
