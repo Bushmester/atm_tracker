@@ -9,7 +9,7 @@ export async function build_sidebar() {
         copyHTML.querySelector('input').setAttribute("value", currency)
         copyHTML.querySelector('input').setAttribute("id", "currency-check "+ currency)
         copyHTML.querySelector('label').setAttribute("for", "currency-check "+ currency)
-        copyHTML.querySelector('label').textContent = currency
+        copyHTML.getElementById('name_item_cur').textContent = currency
         await document.getElementById("currencies").appendChild(copyHTML)
     }
 
@@ -20,7 +20,7 @@ export async function build_sidebar() {
         copyHTML.querySelector('input').setAttribute("value", banks[bank])
         copyHTML.querySelector('input').setAttribute("id", "bank-check "+ bank)
         copyHTML.querySelector('label').setAttribute("for", "bank-check "+ bank)
-        copyHTML.querySelector('label').textContent = bank
+        copyHTML.getElementById('name_item_bank').textContent = bank
         await document.getElementById("banks").appendChild(copyHTML)
     }
 }

@@ -8,24 +8,38 @@
 </head>
 <body>
     <div class="sidebar" id="sidebar">
-        <div id="cities">
-            <label for="city" class="city title">City</label>
-            <input type="text" id="city" placeholder="Enter the city of Russia">
+        <div id="cities" class="cities">
+            <div class="city title">Cities</div>
+            <label for="city" class="check_item">
+                <input type="text" id="city" class="city" placeholder="Enter the city of Russia">
+            </label>
         </div>
 
         <div id="currencies">
             <div class="currency title">Currency</div>
              <template id="currency-temp-id">
-                 <input type="checkbox" id="" name="currency_check" value="">
-                 <label for=""></label>
+                 <div id="check_item_cur" class="check_item">
+                     <div class="check_item inner">
+                         <label for="">
+                             <div id="name_item_cur" class="name_item"></div>
+                             <input type="checkbox" id="" class="check" name="currency_check" value="">
+                        </label>
+                     </div>
+                 </div>
              </template>
         </div>
 
         <div id="banks">
             <div class="bank title">Banks</div>
             <template id="bank-temp-id">
-                <input type="checkbox" id="" name="bank_check" value="">
-                <label for=""></label>
+                <div id="check_item_bank" class="check_item">
+                    <div  class="check_item inner">
+                        <label for="">
+                            <div id="name_item_bank" class="name_item"></div>
+                            <input type="checkbox" id="" class="check" name="bank_check" value="">
+                        </label>
+                    </div>
+                </div>
             </template>
         </div>
 
