@@ -17,9 +17,10 @@ export async function build_sidebar() {
 
     for (let bank in banks) {
         let copyHTML = await document.importNode(bank_temp, true)
-        copyHTML.querySelector('input').setAttribute("value", banks[bank])
+        copyHTML.querySelector('input').setAttribute("value", banks[bank]["code"])
         copyHTML.querySelector('input').setAttribute("id", "bank-check "+ bank)
         copyHTML.querySelector('label').setAttribute("for", "bank-check "+ bank)
+        copyHTML.querySelector('img').setAttribute("src", banks[bank]["img"])
         copyHTML.getElementById('name_item_bank').textContent = bank
         await document.getElementById("banks").appendChild(copyHTML)
     }
