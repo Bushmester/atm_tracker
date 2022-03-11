@@ -5,3 +5,4 @@ class MainSG(StatesGroup):
     city = State()
     currencies = State()
     banks = State()
+    polling = State()
