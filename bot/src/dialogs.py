@@ -1,6 +1,7 @@
 from aiogram_dialog import Window, Dialog
 from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.kbd import Multiselect
+from aiogram_dialog.widgets.kbd import Radio
 from aiogram_dialog.widgets.text import Const
 from aiogram_dialog.widgets.text import Format
 
@@ -8,16 +9,15 @@ from config import CURRENCIES, BANKS
 from handlers import process_banks, process_currencies
 from states import MainSG
 
-
 main_dialog = Dialog(
     Window(
         Const('Please, select currencies:'),
-        Multiselect(
-            Format('✓ {item}'),
-            Format('{item}'),
+        Radio(
+            Format("🔘 {item}"),
+            Format("⚪️ {item}"),
             id='currencies',
             item_id_getter=lambda x: x,
-            items=CURRENCIES,
+            items=CURRENCIES
         ),
         Button(Const('Next'), id='next', on_click=process_currencies),
         state=MainSG.currencies

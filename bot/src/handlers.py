@@ -28,7 +28,7 @@ async def process_city(message: types.Message, dialog_manager: DialogManager):
 
 async def process_currencies(c: CallbackQuery, button: Button, dialog_manager: DialogManager):
     _ = c, button
-    print(f'Currencies: {dialog_manager.data["aiogd_context"].widget_data["currencies"]}')
+    print(f'Currency: {dialog_manager.data["aiogd_context"].widget_data["currencies"]}')
     await dialog_manager.mark_closed()
     await dialog_manager.start(MainSG.banks, mode=StartMode.NEW_STACK)
     await MainSG.banks.set()
