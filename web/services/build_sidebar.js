@@ -4,9 +4,12 @@ import {currencies, banks} from "../config.js"
 export async function build_sidebar() {
     let currency_temp = await document.getElementById('currency-temp-id').content;
 
-    for (let currency of currencies) {
+    for (let currency in currencies) {
         let copyHTML = await document.importNode(currency_temp, true)
         copyHTML.querySelector('input').setAttribute("value", currency)
+        if (currency === "RUB") {
+            copyHTML.querySelector('input').checked = true
+        }
         copyHTML.querySelector('input').setAttribute("id", "currency-check "+ currency)
         copyHTML.querySelector('label').setAttribute("for", "currency-check "+ currency)
         copyHTML.getElementById('name_item_cur').textContent = currency
