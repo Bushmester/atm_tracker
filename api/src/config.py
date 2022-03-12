@@ -1,3 +1,11 @@
+import os
+
+from dotenv import find_dotenv, load_dotenv
+
+
+load_dotenv(find_dotenv())
+
+
 HEADERS = {
     'accept': '*/*',
     'content-type': 'application/json',
@@ -28,3 +36,5 @@ BODY = {
     },
     'zoom': 11
 }
+
+API_FOR_ATM = os.getenv("API_FOR_ATM", "https://api.tinkoff.ru/geo/withdraw/clusters")
