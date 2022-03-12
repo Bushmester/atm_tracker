@@ -12,6 +12,7 @@ export async function build_sidebar() {
         }
         copyHTML.querySelector('input').setAttribute("id", "currency-check "+ currency)
         copyHTML.querySelector('label').setAttribute("for", "currency-check "+ currency)
+        copyHTML.querySelector('image').setAttribute("xlink:href", currencies[currency])
         copyHTML.getElementById('name_item_cur').textContent = currency
         await document.getElementById("currencies").appendChild(copyHTML)
     }

@@ -11,11 +11,11 @@
     <div class="relative min-h-screen flex">
         <div id="sidebar" class="w-96 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
             <label class="block px-6 mb-2 text-xl font-medium">
-                <div id="city" class="pb-6 text-gray-700">City</div>
-                <input class="block p-4 h-16 text-lg border rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter the city of Russia">
+                <div class="pb-6 text-gray-700">City</div>
+                <input id="city" class="block p-4 h-16 text-lg border rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter the city of Russia">
             </label>
 
-            <button class="search btn text-white mx-7 px-32 py-3 rounded-full text-1xl font-medium bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:ring-cyan-300 transition duration-300">
+            <button id="search btn" class="search btn text-white mx-7 px-32 py-3 rounded-full text-1xl font-medium bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:ring-cyan-300 transition duration-300">
                 Search
             </button>
 
@@ -26,7 +26,9 @@
                         <li class="flex py-3 first:pt-0 last:pb-0 border-t">
                             <div class="overflow-hidden w-full">
                                 <label for="" class="grid grid-cols-6">
-                                    <img class="h-9 w-9 rounded-full fill-red" src="./static/icons/dollar.svg" alt="" />
+                                    <svg class="h-9 w-9 rounded-full fill-white">
+                                        <image class="h-9 w-9 fill-white" xlink:href="./static/icons/dollar.svg"></image>
+                                    </svg>
                                     <p id="name_item_cur" class="col-span-4 text-md font-medium text-slate-700 hover:text-slate-900 text-start self-center"></p>
                                     <input name="currency_check" type="radio" class="ml-8 form-checkbox h-5 w-5 text-gray-600 self-center" value="">
                                 </label>
@@ -45,7 +47,7 @@
                                 <label for="" class="grid grid-cols-6">
                                     <img class="h-9 w-9 rounded-full" src="" alt="" />
                                     <p id="name_item_bank" class="col-span-4 text-md font-medium text-slate-700 text-start self-center"></p>
-                                    <input name="currency_check" type="checkbox" class="ml-8 form-checkbox h-5 w-5 text-gray-600 self-center" value="">
+                                    <input name="bank_check" type="checkbox" class="ml-8 form-checkbox h-5 w-5 text-gray-600 self-center" value="">
                                 </label>
                             </div>
                         </li>

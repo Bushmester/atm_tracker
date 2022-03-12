@@ -1,4 +1,8 @@
-export const currencies = ["RUB", "USD", "EUR"];
+export const currencies = {
+    "RUB": "./static/icons/ruble.svg",
+    "USD": "./static/icons/dollar.svg",
+    "EUR": "./static/icons/euro.svg"
+};
 
 export const banks = {
     "Tinkoff": {"code": "tcs", "img": "./static/img/tinkoff.png"},
