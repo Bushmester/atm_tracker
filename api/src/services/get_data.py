@@ -2,7 +2,7 @@ import json
 
 import aiohttp
 
-from src.config import HEADERS, BODY, API_FOR_ATM
+from config import HEADERS, BODY, API_FOR_ATM
 
 
 async def get_data_about_atm_from_api():

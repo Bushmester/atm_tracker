@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from src.services.connection_manager import ConnectionManager
+from services.connection_manager import ConnectionManager
 
 app = FastAPI()
 manager = ConnectionManager()

@@ -1,6 +1,6 @@
 from fastapi import WebSocket, WebSocketDisconnect
 
-from src.main import app, manager
+from main import app, manager
 
 
 @app.websocket("ws/")

@@ -1,6 +1,7 @@
 from fastapi import WebSocket
 
-from src.services.singleton import Singleton
+from services.singleton import Singleton
+from services.subscribers import Subscribers
 
 
 class ConnectionManager(metaclass=Singleton):
