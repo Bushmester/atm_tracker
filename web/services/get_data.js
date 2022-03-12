@@ -1,13 +1,7 @@
 export async function get_data_from_sidebar() {
     let city = await document.getElementById('city').value
 
-    let currencies = []
-    let currency_check = await document.getElementsByName('currency_check').values()
-    for (let currency of currency_check) {
-        if (currency.checked) {
-                currencies.push(currency.value)
-        }
-    }
+    let currency = await document.querySelector('input[name="currency_check"]:checked').value
 
     let banks = []
     let bank_check = await document.getElementsByName('bank_check').values()
@@ -20,6 +14,6 @@ export async function get_data_from_sidebar() {
     return JSON.stringify({
         "city": city,
         "banks": banks,
-        "currencies": currencies
+        "currency": currency
     })
 }
