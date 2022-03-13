@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 
-from services.connection_manager import ConnectionManager
+from view.websocket import router
+
 
 app = FastAPI()
-manager = ConnectionManager()
+app.include_router(router)
 
 
 @app.get("/")
