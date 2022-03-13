@@ -23,7 +23,16 @@ class ConnectionManager(metaclass=Singleton):
         self.subscribers.subscribers[data_hash].setdefault("clients", []).append(websocket)
 
     def disconnect(self, websocket: WebSocket):
-        pass
+        subs = self.subscribers.subscribers
+        for sub in subs:
+            clients = subs[sub]["clients"]
+            if websocket in clients:
+                clients.remove(websocket)
+
+        subs = self.subscribers.subscribers
+        for sub in subs.copy():
+            if not subs[sub]["clients"]:
+                subs.pop(sub)
 
     async def broadcast(self):
         pass
