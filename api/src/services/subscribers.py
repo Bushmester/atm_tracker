@@ -2,8 +2,9 @@ from typing import Dict, List
 
 from fastapi import WebSocket
 
-from services.singleton import Singleton
+from helpers.singleton import Singleton
 
 
 class Subscribers(metaclass=Singleton):
-    subscribers: Dict[str, Dict[str, List[WebSocket]]]
+    def __init__(self):
+        self.subscribers: Dict[str, Dict[str, Dict[str, List[WebSocket]]]] = {}
