@@ -24,13 +24,10 @@ class ConnectionManager(metaclass=Singleton):
 
     def disconnect(self, websocket: WebSocket):
         subs = self.subscribers.subscribers
-        for sub in subs:
+        for sub in subs.copy():
             clients = subs[sub]["clients"]
             if websocket in clients:
                 clients.remove(websocket)
-
-        subs = self.subscribers.subscribers
-        for sub in subs.copy():
             if not subs[sub]["clients"]:
                 subs.pop(sub)
 
