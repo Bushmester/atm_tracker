@@ -2,7 +2,9 @@ import json
 
 from fastapi import WebSocket
 
+from helpers.serializer import serializer_response
 from helpers.singleton import Singleton
+from services.get_data import get_data_about_atm_from_api
 from services.hash_data import hash_data
 from services.subscribers import Subscribers
 
@@ -32,7 +34,15 @@ class ConnectionManager(metaclass=Singleton):
                 subs.pop(sub)
 
     async def broadcast(self):
-        pass
+        subs = self.subscribers.subscribers
+        for sub in subs:
+            config = subs[sub]["config"]
+            clients = subs[sub]["clients"]
+            response = await get_data_about_atm_from_api(config["city"], config["currency"], config["banks"])
+            data = await serializer_response(response)
+
+            for client in clients:
+                await client.send_json(json.dumps(data))
 
 
 manager = ConnectionManager()
