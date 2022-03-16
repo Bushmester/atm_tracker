@@ -6,9 +6,10 @@ authors = ["Ilnar Gomelyanov <hibushland@gmail.com>", "Ramil Suleimanov <lllumin
 
 [tool.poetry.dependencies]
 python = "^3.10"
-uvicorn = "^0.17.5"
+uvicorn = {extras = ["standard"], version = "^0.17.6"}
 fastapi = "^0.75.0"
 aiohttp = "^3.8.1"
+python-dotenv = "^0.19.2"
 
 [tool.poetry.dev-dependencies]
 
