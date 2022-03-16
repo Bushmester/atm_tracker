@@ -6,21 +6,23 @@ from config import BODY_EXAMPLE, BANK_TO_BANK_ID, POSITION_STACK_TOKEN
 
 
 async def generate_body(city: str, currency: str, banks: List[str]):
-    body = BODY_EXAMPLE.copy()
-
-    async with aiohttp.ClientSession(auto_decompress=False) as session:
-        link = f"http://api.positionstack.com/v1/forward?access_key={POSITION_STACK_TOKEN}&query={city}"
-        async with session.post(link) as r:
-            data = await r.json()
-    city_coords = data[0]["bbox_module"][::-1]
-
-    (
-        body["bounds"]["topRight"]["lat"],
-        body["bounds"]["topRight"]["lng"],
-        body["bounds"]["bottomLeft"]["lat"],
-        body["bounds"]["bottomLeft"]["lng"]
-    ) = city_coords
-    body["filters"]["currencies"] = [currency]
-    body["filters"]["banks"] = [BANK_TO_BANK_ID[bank] for bank in banks]
-
-    return body
+    # body = BODY_EXAMPLE.copy()
+    #
+    # async with aiohttp.ClientSession(auto_decompress=False) as session:
+    #     link = f"http://api.positionstack.com/v1/forward?access_key={POSITION_STACK_TOKEN}&query={city}"
+    #     async with session.post(link) as r:
+    #         data = await r.json()
+    # print(data)
+    # city_coords = data[0]["bbox_module"][::-1]
+    #
+    # (
+    #     body["bounds"]["topRight"]["lat"],
+    #     body["bounds"]["topRight"]["lng"],
+    #     body["bounds"]["bottomLeft"]["lat"],
+    #     body["bounds"]["bottomLeft"]["lng"]
+    # ) = city_coords
+    # body["filters"]["currencies"] = [currency]
+    # body["filters"]["banks"] = [BANK_TO_BANK_ID[bank] for bank in banks]
+    #
+    # return body
+    return BODY_EXAMPLE
