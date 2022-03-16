@@ -9,4 +9,7 @@ window.onload = async function (){
     document.getElementById('search btn').onclick = async () => {
         await send_data_using_websocket(socket)
     }
+    socket.onmessage = async function (event) {
+        console.log(event.data.toString())
+    }
 }
