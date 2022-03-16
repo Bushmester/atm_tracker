@@ -17,3 +17,9 @@ export async function get_data_from_sidebar() {
         "currency": currency
     })
 }
+
+export async function get_data_using_websocket(socket) {
+    socket.onmessage = async function (event) {
+        console.log(event.data)
+    }
+}
