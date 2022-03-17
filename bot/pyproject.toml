@@ -7,6 +7,9 @@ authors = ["Ramil Suleimanov <lllumineux@outlook.com>"]
 [tool.poetry.dependencies]
 python = "^3.10"
 aiogram = "^2.19"
+python-dotenv = "^0.19.2"
+aiogram-dialog = "^1.2.1"
+websockets = "^10.2"
 
 [tool.poetry.dev-dependencies]
 
