@@ -11,11 +11,11 @@ from states import MainSG
 
 main_dialog = Dialog(
     Window(
-        Const('Please, select currencies:'),
+        Const('Please, select currency:'),
         Radio(
             Format("🔘 {item}"),
             Format("⚪️ {item}"),
-            id='currencies',
+            id='currency',
             item_id_getter=lambda x: x,
             items=CURRENCIES
         ),
