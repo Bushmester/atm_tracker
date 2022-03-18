@@ -5,7 +5,7 @@ import {send_data_using_websocket} from "./services/send_data.js";
 window.onload = async function (){
     await build_sidebar()
 
-    const socket = new WebSocket("ws://localhost:8000/ws/{client}")
+    const socket = new WebSocket("ws://localhost:8000/ws")
     document.getElementById('search btn').onclick = async () => {
         await send_data_using_websocket(socket)
     }
