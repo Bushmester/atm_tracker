@@ -1,4 +1,3 @@
-import asyncio
 import json
 import zlib
 from typing import List
