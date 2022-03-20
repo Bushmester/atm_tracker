@@ -66,7 +66,17 @@ class ConnectionManager(metaclass=Singleton):
             self.subscribers.subscribers[data_hash]["data"] = current_data
 
             for client in clients:
-                await client.send_bytes(json.dumps(current_data, ensure_ascii=False).encode())
+                await client.send_bytes(
+                    json.dumps(
+                        {
+                            'old': old_atms,
+                            'new': new_atms,
+                            'updated': updated_atms,
+                            'obsolete': obsolete_atms
+                        },
+                        ensure_ascii=False
+                    ).encode()
+                )
 
 
 manager = ConnectionManager()
