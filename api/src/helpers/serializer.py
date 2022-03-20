@@ -9,6 +9,6 @@ async def serializer_response(response):
                 currency = limits["currency"]
                 amount = limits["amount"]
 
-                data.setdefault(address, {}).setdefault(currency, amount)
+                data.setdefault(address, {}).setdefault("currencies", {}).setdefault(currency, amount)
 
     return data
