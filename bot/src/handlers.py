@@ -1,3 +1,5 @@
+import json
+
 import websockets
 from aiogram import types
 from aiogram.dispatcher import FSMContext
@@ -6,7 +8,10 @@ from aiogram_dialog import DialogManager, StartMode
 from aiogram_dialog.widgets.kbd import Button
 
 from states import MainSG
-from db_utils import add_client_city_by_user_id, add_client_currency_by_user_id, add_client_banks_by_user_id
+from db_utils import (
+    add_client_city_by_user_id, add_client_currency_by_user_id, add_client_banks_by_user_id,
+    get_clients,
+)
 
 
 async def cmd_help(message: types.Message, state: FSMContext):
@@ -43,16 +48,56 @@ async def process_banks(c: CallbackQuery, button: Button, dialog_manager: Dialog
     banks = dialog_manager.data["aiogd_context"].widget_data["banks"]
     add_client_banks_by_user_id(banks, c.from_user['id'])
     await dialog_manager.mark_closed()
-    await c.message.answer('Here is the list of available ATMs:')
-    await c.message.answer('If a ATM appears: you\'ll receive update message.')
     await MainSG.polling.set()
-    await process_polling(c.message)
+    await process_polling(c)
 
 
-async def process_polling(message: types.Message):
-    async with websockets.connect('ws://localhost:8000/ws/{client}') as ws:
-        data = await ws.recv()
-    await message.answer(str(data))
+async def process_polling(c: CallbackQuery):
+    client = get_clients(user_id=c.from_user['id'])[0]
+
+    async with websockets.connect('ws://localhost:8000/ws') as ws:
+        # First message
+        await ws.send(json.dumps(client['data']))
+        data = json.loads(await ws.recv())['new']
+
+        if data:
+            await c.message.answer('List of available ATMs:')
+            for atm, atm_info in data.items():
+                await c.message.answer(atm)
+        else:
+            await c.message.answer('No available ATMs at the moment.')
+
+        await c.message.answer('If something changes, you\'ll receive an update message.')
+
+        # Waiting for updates
+        while True:
+            try:
+                data = json.loads(await ws.recv())
+
+                new_atms = data['new']
+                if new_atms:
+                    await c.message.answer('List of NEW ATMs:')
+                    for atm, atm_info in new_atms.items():
+                        currency, amount = list(atm_info["currencies"].items())[0]
+                        await c.message.answer(f'{atm}\n{currency}: {amount}')
+
+                updated_atms = data['updated']
+                await c.message.answer('List of UPDATED ATMs:')
+                if updated_atms:
+                    for atm, atm_info in new_atms.items():
+                        currency, amount = list(atm_info["currencies"].items())[0]
+                        await c.message.answer(f'{atm}\n{currency}: {amount}')
+
+                obsolete_atms = data['obsolete']
+                await c.message.answer('List of OBSOLETE ATMs:')
+                if obsolete_atms:
+                    for atm, atm_info in new_atms.items():
+                        currency, amount = list(atm_info["currencies"].items())[0]
+                        await c.message.answer(f'{atm}\n{currency}: {amount}')
+
+            except websockets.ConnectionClosed:
+                print('Connection with server closed')
+                break
 
 
 def register_handlers(dp):
