@@ -42,7 +42,7 @@ class ConnectionManager(metaclass=Singleton):
             data = await serializer_response(response)
 
             for client in clients:
-                await client.send_json(json.dumps(data))
+                await client.send_bytes(json.dumps(data, ensure_ascii=False).encode())
 
 
 manager = ConnectionManager()
