@@ -2,9 +2,8 @@ import json
 
 from fastapi import WebSocket
 
-from helpers.serializer import serializer_response
 from helpers.singleton import Singleton
-from services.get_data import get_data_about_atm_from_api, _get_data_about_atm
+from services.get_data import _get_data_about_atm
 from services.hash_data import hash_data
 from services.subscribers import Subscribers
 
