@@ -33,6 +33,18 @@ class ConnectionManager(metaclass=Singleton):
             if not subs[sub]["clients"]:
                 subs.pop(sub)
 
+    async def send_personal_data(self, client: WebSocket):
+        subs = self.subscribers.subscribers
+        for sub in subs:
+            config = subs[sub]["config"]
+            clients = subs[sub]["clients"]
+
+            if client not in clients:
+                continue
+
+            data = await _get_data_about_atm(subscribers=self.subscribers.subscribers, config=config)
+            await client.send_bytes(data)
+
     async def broadcast(self):
         subs = self.subscribers.subscribers
         for sub in subs:
