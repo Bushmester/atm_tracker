@@ -1,3 +1,4 @@
+import asyncio
 import time
 
 from fastapi import WebSocket, WebSocketDisconnect, APIRouter
@@ -12,14 +13,9 @@ router = APIRouter(tags=["ws"])
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     try:
-        is_first = True
         while True:
-            if is_first:
-                data = await websocket.receive_json()
-                manager.connect(websocket, data)
-                await manager.broadcast()
-                is_first = False
-            time.sleep(60)
-            await manager.broadcast()
+            data = await websocket.receive_json()
+            manager.connect(websocket, data)
+            await manager.send_personal_data(websocket)
     except WebSocketDisconnect:
         manager.disconnect(websocket)
