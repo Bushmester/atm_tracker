@@ -29,3 +29,18 @@ export async function build_sidebar() {
         await document.getElementById("banks").appendChild(copyHTML)
     }
 }
+
+
+export async function build_main_atm_content(atms) {
+    let atm_info_temp = await document.getElementById("atm-info-temp-id").content;
+
+    for (let atm of atms) {
+        for (let address in atm) {
+            let copyHTML = await document.importNode(atm_info_temp, true)
+            copyHTML.getElementById("atm-info-address").textContent = address
+            copyHTML.getElementById("atm-info-currency").textContent = "USD"
+            copyHTML.getElementById("atm-info-currency-amount").textContent = atm[address]["currencies"]["USD"]
+            await document.getElementById("main").appendChild(copyHTML)
+        }
+    }
+}
