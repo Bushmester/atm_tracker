@@ -56,7 +56,15 @@
             </ul>
         </div>
 
-        <div class="main flex-1 p-10 text-2xl font-bold bg-gray-100"></div>
+        <div id="main" class="main flex-1 p-10 text-2xl font-bold bg-gray-100 grid 2xl:grid-cols-3 grid-cols-1 auto-rows-min gap-4">
+            <template id="atm-info-temp-id">
+                <div class="h-min bg-white rounded-lg px-6 py-8">
+                    <h3 id="atm-info-address" class="text-slate-900 text-xl"></h3>
+                    <p id="atm-info-currency" class="text-slate-500 mt-2 text-sm"></p>
+                    <p id="atm-info-currency-amount" class="text-slate-500 mt-2 text-sm"></p>
+                </div>
+            </template>
+        </div>
     </div>
 </body>
 </html>
