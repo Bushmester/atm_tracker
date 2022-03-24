@@ -12,6 +12,7 @@ from db_utils import (
     add_client_city_by_user_id, add_client_currency_by_user_id, add_client_banks_by_user_id,
     get_clients,
 )
+from utils import concatenate_dicts
 
 
 async def cmd_help(message: types.Message, state: FSMContext):
@@ -58,12 +59,18 @@ async def process_polling(c: CallbackQuery):
     async with websockets.connect('ws://localhost:8000/ws') as ws:
         # First message
         await ws.send(json.dumps(client['data']))
-        data = json.loads(await ws.recv())['new']
+        data = json.loads(await ws.recv())
 
         if data:
             await c.message.answer('List of available ATMs:')
-            for atm, atm_info in data.items():
-                await c.message.answer(atm)
+            for atm, atm_info in concatenate_dicts(
+                    data['old'],
+                    data['new'],
+                    data['updated'],
+                    data['obsolete']
+            ).items():
+                currency, amount = list(atm_info["currencies"].items())[0]
+                await c.message.answer(f'<b>{atm}</b>\n<i>{currency}</i>: {amount}', parse_mode=types.ParseMode.HTML)
         else:
             await c.message.answer('No available ATMs at the moment.')
 
@@ -79,21 +86,21 @@ async def process_polling(c: CallbackQuery):
                     await c.message.answer('List of NEW ATMs:')
                     for atm, atm_info in new_atms.items():
                         currency, amount = list(atm_info["currencies"].items())[0]
-                        await c.message.answer(f'{atm}\n{currency}: {amount}')
+                        await c.message.answer(f'<b>{atm}</b>\n<i>{currency}</i>: {amount}', parse_mode=types.ParseMode.HTML)
 
                 updated_atms = data['updated']
-                await c.message.answer('List of UPDATED ATMs:')
                 if updated_atms:
+                    await c.message.answer('List of UPDATED ATMs:')
                     for atm, atm_info in new_atms.items():
                         currency, amount = list(atm_info["currencies"].items())[0]
-                        await c.message.answer(f'{atm}\n{currency}: {amount}')
+                        await c.message.answer(f'<b>{atm}</b>\n<i>{currency}</i>: {amount}', parse_mode=types.ParseMode.HTML)
 
                 obsolete_atms = data['obsolete']
-                await c.message.answer('List of OBSOLETE ATMs:')
                 if obsolete_atms:
+                    await c.message.answer('List of OBSOLETE ATMs:')
                     for atm, atm_info in new_atms.items():
                         currency, amount = list(atm_info["currencies"].items())[0]
-                        await c.message.answer(f'{atm}\n{currency}: {amount}')
+                        await c.message.answer(f'<b>{atm}</b>\n<i>{currency}</i>: {amount}', parse_mode=types.ParseMode.HTML)
 
             except websockets.ConnectionClosed:
                 print('Connection with server closed')
