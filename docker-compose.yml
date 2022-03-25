@@ -1,7 +1,11 @@
 services:
   api:
     image: api:latest
-    build: api
+    build: .
     restart: always
     ports:
       - 8000:8000
+  bot:
+    image: bot:latest
+    build: .
+    restart: always
