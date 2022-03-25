@@ -1,0 +1,7 @@
+services:
+  api:
+    image: api:latest
+    build: api
+    restart: always
+    ports:
+      - 8000:8000
