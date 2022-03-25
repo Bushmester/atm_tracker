@@ -32,6 +32,14 @@ export async function build_sidebar() {
 
 
 export async function build_main_atm_content(atms) {
+    document.getElementById("main").innerHTML = "" +
+        "           <template id=\"atm-info-temp-id\">\n" +
+        "                <div class=\"h-min bg-white rounded-lg px-6 py-8\">\n" +
+        "                    <h3 id=\"atm-info-address\" class=\"text-slate-900 text-xl\"></h3>\n" +
+        "                    <p id=\"atm-info-currency\" class=\"text-slate-500 mt-2 text-sm\"></p>\n" +
+        "                    <p id=\"atm-info-currency-amount\" class=\"text-slate-500 mt-2 text-sm\"></p>\n" +
+        "                </div>\n" +
+        "            </template>"
     let atm_info_temp = await document.getElementById("atm-info-temp-id").content;
 
     for (let atm of atms) {
