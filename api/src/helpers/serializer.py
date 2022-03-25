@@ -11,6 +11,6 @@ async def serializer_response(response, config_currency):
                     continue
                 amount = limits["amount"]
 
-                data.setdefault(address, {}).setdefault("currencies", [currency, amount])
+                data.setdefault(address, {}).setdefault("currencies", {}).setdefault(currency, amount)
 
     return data
