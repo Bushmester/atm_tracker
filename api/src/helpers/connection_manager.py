@@ -17,11 +17,21 @@ class ConnectionManager(metaclass=Singleton):
         currency = data["currency"]
         banks = data["banks"]
         data_hash = hash_data(city, currency, banks)
-        self.subscribers.subscribers.setdefault(data_hash, {}).setdefault("config", {})
-        self.subscribers.subscribers[data_hash]["config"]["city"] = city
-        self.subscribers.subscribers[data_hash]["config"]["currency"] = currency
-        self.subscribers.subscribers[data_hash]["config"]["banks"] = banks
-        self.subscribers.subscribers[data_hash].setdefault("clients", []).append(websocket)
+        subs = self.subscribers.subscribers
+        subs.setdefault(data_hash, {}).setdefault("config", {})
+        subs[data_hash]["config"]["city"] = city
+        subs[data_hash]["config"]["currency"] = currency
+        subs[data_hash]["config"]["banks"] = banks
+        subs[data_hash].setdefault("clients", []).append(websocket)
+
+        for sub in subs.copy():
+            if sub == data_hash:
+                continue
+            clients = subs[sub]["clients"]
+            if websocket in clients:
+                clients.remove(websocket)
+            if not subs[sub]["clients"]:
+                subs.pop(sub)
 
     def disconnect(self, websocket: WebSocket):
         subs = self.subscribers.subscribers
@@ -50,6 +60,7 @@ class ConnectionManager(metaclass=Singleton):
             except KeyError:
                 data = await _get_data_about_atm(subscribers=self.subscribers.subscribers, config=config)
 
+            print(data)
             await client.send_bytes(data)
 
     async def broadcast(self):
