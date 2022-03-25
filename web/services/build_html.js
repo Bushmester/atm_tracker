@@ -38,8 +38,8 @@ export async function build_main_atm_content(atms) {
         for (let address in atm) {
             let copyHTML = await document.importNode(atm_info_temp, true)
             copyHTML.getElementById("atm-info-address").textContent = address
-            copyHTML.getElementById("atm-info-currency").textContent = "USD"
-            copyHTML.getElementById("atm-info-currency-amount").textContent = atm[address]["currencies"]["USD"]
+            copyHTML.getElementById("atm-info-currency").textContent = atm[address]["currencies"][0]
+            copyHTML.getElementById("atm-info-currency-amount").textContent = atm[address]["currencies"][1]
             await document.getElementById("main").appendChild(copyHTML)
         }
     }
