@@ -41,7 +41,15 @@ class ConnectionManager(metaclass=Singleton):
             if client not in clients:
                 continue
 
-            data = await _get_data_about_atm(subscribers=self.subscribers.subscribers, config=config)
+            data = None
+            try:
+                data = json.dumps(
+                    subs[sub]["state"],
+                    ensure_ascii=False
+                ).encode()
+            except KeyError:
+                data = await _get_data_about_atm(subscribers=self.subscribers.subscribers, config=config)
+
             await client.send_bytes(data)
 
     async def broadcast(self):
