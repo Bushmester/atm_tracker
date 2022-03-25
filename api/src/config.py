@@ -54,3 +54,8 @@ BANK_TO_BANK_ID = {
 
 API_FOR_ATM = os.getenv("API_FOR_ATM", "https://api.tinkoff.ru/geo/withdraw/clusters")
 POSITION_STACK_TOKEN = os.getenv("POSITION_STACK_TOKEN")
+
+DB_HOST = os.getenv("DB_HOST", "DB_HOST")
+DB_NAME = os.getenv("DB_NAME", "postgres")
+DB_USER = os.getenv("DB_USER", "postgres")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "postgres")

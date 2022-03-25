@@ -7,6 +7,7 @@ from aiogram.types import CallbackQuery
 from aiogram_dialog import DialogManager, StartMode
 from aiogram_dialog.widgets.kbd import Button
 
+from config import HOST
 from states import MainSG
 from db_utils import (
     add_client_city_by_user_id, add_client_currency_by_user_id, add_client_banks_by_user_id,
@@ -55,7 +56,7 @@ async def process_banks(c: CallbackQuery, button: Button, dialog_manager: Dialog
 async def process_polling(c: CallbackQuery):
     client = get_clients(user_id=c.from_user['id'])[0]
 
-    async with websockets.connect('ws://localhost:8000/ws') as ws:
+    async with websockets.connect(f'ws://{HOST}:8000/ws') as ws:
         # First message
         await ws.send(json.dumps(client['data']))
         data = json.loads(await ws.recv())['new']
