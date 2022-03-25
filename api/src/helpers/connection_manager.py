@@ -60,7 +60,6 @@ class ConnectionManager(metaclass=Singleton):
             except KeyError:
                 data = await _get_data_about_atm(subscribers=self.subscribers.subscribers, config=config)
 
-            print(data)
             await client.send_bytes(data)
 
     async def broadcast(self):
