@@ -24,7 +24,7 @@ async def get_data_about_atm_from_api(city: str, currency: str, banks: List[str]
 
 async def _get_data_about_atm(subscribers, config):
     response = await get_data_about_atm_from_api(config["city"], config["currency"], config["banks"])
-    current_data = await serializer_response(response)
+    current_data = await serializer_response(response, config["currency"])
     data_hash = hash_data(config["city"], config["currency"], config["banks"])
     prev_data = subscribers[data_hash].setdefault("data", {})
 

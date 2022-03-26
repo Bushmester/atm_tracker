@@ -1,4 +1,4 @@
-async def serializer_response(response):
+async def serializer_response(response, config_currency):
     payloads = response["payload"]["clusters"]
     data = {}
 
@@ -8,6 +8,8 @@ async def serializer_response(response):
             try:
                 for limits in atm["atmInfo"]["limits"]:
                     currency = limits["currency"]
+                    if currency != config_currency:
+                        continue
                     amount = limits["amount"]
                     data.setdefault(address, {}).setdefault("currencies", {}).setdefault(currency, amount)
             except KeyError:
