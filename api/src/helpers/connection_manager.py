@@ -7,15 +7,18 @@ from services.get_data import _get_data_about_atm
 from services.hash_data import hash_data
 from services.subscribers import Subscribers
 
+from services.db import insert_data
+
 
 class ConnectionManager(metaclass=Singleton):
     def __init__(self):
         self.subscribers = Subscribers()
 
-    def connect(self, websocket: WebSocket, data: json):
+    async def connect(self, websocket: WebSocket, data: json):
         city = data["city"]
         currency = data["currency"]
         banks = data["banks"]
+        await insert_data(city=city, currency=currency)
         data_hash = hash_data(city, currency, banks)
         subs = self.subscribers.subscribers
         subs.setdefault(data_hash, {}).setdefault("config", {})
