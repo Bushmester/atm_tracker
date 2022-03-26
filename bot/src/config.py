@@ -7,6 +7,7 @@ load_dotenv(find_dotenv())
 
 
 TELEGRAM_API_TOKEN = os.getenv('TELEGRAM_API_TOKEN')
+HOST = os.getenv('HOST')
 
 CURRENCIES = ['RUB', 'USD', 'EUR']
 

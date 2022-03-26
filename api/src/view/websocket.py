@@ -12,7 +12,7 @@ async def websocket_endpoint(websocket: WebSocket):
     try:
         while True:
             data = await websocket.receive_json()
-            manager.connect(websocket, data)
+            await manager.connect(websocket, data)
             await manager.send_personal_data(websocket)
     except WebSocketDisconnect:
         manager.disconnect(websocket)
