@@ -1,11 +1,17 @@
-FROM python:3.10
+FROM python:3.8
+ENV PYTHONUNBUFFERED 1
 
-WORKDIR /src
-COPY poetry.lock /src
-COPY pyproject.toml /src
+WORKDIR /app
+
+COPY pyproject.toml .
+COPY poetry.lock .
 RUN pip install poetry
-RUN poetry install
-COPY . /src
-WORKDIR /src/src
-ENTRYPOINT ["poetry", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-dev
 
+COPY . .
+
+EXPOSE 8000
+
+ENTRYPOINT ["python3"]
+CMD ["src/asgi.py"]

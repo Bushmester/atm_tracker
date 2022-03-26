@@ -7,6 +7,7 @@ from config import HEADERS, API_FOR_ATM
 from helpers.serializer import serializer_response
 from services.generate_body import generate_body
 from services.hash_data import hash_data
+from services.save_data import save_data_state
 
 
 async def get_data_about_atm_from_api(city: str, currency: str, banks: List[str]):
@@ -50,12 +51,16 @@ async def _get_data_about_atm(subscribers, config):
 
     subscribers[data_hash]["data"] = current_data
 
+    state = {
+        'old': old_atms,
+        'new': new_atms,
+        'updated': updated_atms,
+        'obsolete': obsolete_atms
+    }
+
+    save_data_state(subscribers, config, state)
+
     return json.dumps(
-        {
-            'old': old_atms,
-            'new': new_atms,
-            'updated': updated_atms,
-            'obsolete': obsolete_atms
-        },
+        state,
         ensure_ascii=False
     ).encode()
